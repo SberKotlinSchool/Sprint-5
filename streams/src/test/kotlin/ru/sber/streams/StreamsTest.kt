@@ -7,8 +7,8 @@ class StreamsTest {
 
     @Test
     fun getSumWithIndexDivisibleByThreeTest() {
-        assertEquals(4, getSumWithIndexDivisibleByThree(listOf(3L ,2L, 563L, 1L, 244L, 27L, 0L)))
-        assertEquals(612, getSumWithIndexDivisibleByThree(listOf(22L, 13L ,2L, 563L, 1L, 244L, 27L, 0L)))
+        assertEquals(4, getSumWithIndexDivisibleByThree(listOf(3L, 2L, 563L, 1L, 244L, 27L, 0L)))
+        assertEquals(612, getSumWithIndexDivisibleByThree(listOf(22L, 13L, 2L, 563L, 1L, 244L, 27L, 0L)))
     }
 
     @Test
@@ -24,7 +24,10 @@ class StreamsTest {
 
     @Test
     fun allOrderedProductsTest() {
-        assertEquals(setOf(milk, bread, water, banana, apple, mango, beef, yogurt, chocolate, oil), shop.allOrderedProducts())
+        assertEquals(
+            setOf(milk, bread, water, banana, apple, mango, beef, yogurt, chocolate, oil),
+            shop.allOrderedProducts()
+        )
     }
 
     @Test
@@ -35,7 +38,7 @@ class StreamsTest {
     @Test
     fun getMostExpensiveProductTest() {
         val customer1 = Customer("Ivan", Moscow, listOf(Order(listOf(milk, bread)), Order(listOf(beef))))
-        val customer2 = Customer("Ivan", Tula,listOf(Order(listOf(mango, water))))
+        val customer2 = Customer("Ivan", Tula, listOf(Order(listOf(mango, water))))
         assertEquals(beef, customer1.getMostExpensiveProduct())
         assertEquals(mango, customer2.getMostExpensiveProduct())
     }
@@ -54,11 +57,13 @@ class StreamsTest {
 
     @Test
     fun getProductsOrderedByAllTest() {
-        val shop = Shop("Test shop", listOf(
+        val shop = Shop(
+            "Test shop", listOf(
                 Customer("Alex", Moscow, listOf(Order(listOf(water, mango)), Order(listOf(bag)))),
                 Customer("Mary", Tula, listOf(Order(listOf(chocolate, bag)))),
                 Customer("Ivan", Perm, listOf(Order(listOf(water, bag)))),
-        ))
+            )
+        )
         assertEquals(setOf(bag), shop.getProductsOrderedByAll())
     }
 
