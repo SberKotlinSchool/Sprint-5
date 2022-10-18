@@ -1,7 +1,10 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonInclude.Include
 import java.time.LocalDate
 
+@JsonInclude(Include.NON_NULL)
 data class Client5(
     val firstName: String? = null,
     val lastName: String? = null,
