@@ -1,5 +1,6 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -24,6 +25,7 @@ class JsonSerializationTest {
         // given
         val client = Client6()
         val objectMapper = ObjectMapper()
+            .setSerializationInclusion(Include.NON_NULL)
 
         // when
         val data = objectMapper.writeValueAsString(client)
