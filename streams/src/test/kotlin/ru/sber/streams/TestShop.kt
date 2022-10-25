@@ -29,6 +29,14 @@ val Tula = City("Tula")
          Customer("Mari", Tula, listOf(
                  Order(listOf(apple, banana), isDelivered = false)
          )),
+//         Customer("Nick", Tula, listOf(
+//                 Order(listOf(apple, banana)),
+//                 Order(listOf(apple, banana)),
+//                 Order(listOf(apple, banana)),
+//                 Order(listOf(apple, banana)),
+//                 Order(listOf(apple, banana)),
+//                 Order(listOf(apple, banana)),
+//         )),
          Customer("Pavel", Moscow, listOf(
                  Order(listOf(beef, oil, milk))
          )),

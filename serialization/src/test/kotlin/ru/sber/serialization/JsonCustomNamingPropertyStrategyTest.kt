@@ -1,6 +1,11 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -13,7 +18,7 @@ class JsonCustomNamingPropertyStrategyTest {
         // given
         val data =
             """{"FIRSTNAME": "Иван", "LASTNAME": "Иванов", "MIDDLENAME": "Иванович", "PASSPORTNUMBER": "123456", "PASSPORTSERIAL": "1234", "BIRTHDATE": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = JsonMapper.builder().addModule(JavaTimeModule()).build()
 
         // when
         val client = objectMapper.readValue<Client1>(data)
