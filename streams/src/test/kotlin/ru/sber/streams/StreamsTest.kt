@@ -42,7 +42,6 @@ class StreamsTest {
 
     @Test
     fun getNumberOfOrderedProductByCityTest() {
-        println(shop.getNumberOfDeliveredProductByCity())
         assertEquals(8, shop.getNumberOfDeliveredProductByCity()[Moscow])
         assertEquals(0, shop.getNumberOfDeliveredProductByCity()[Tula])
     }
