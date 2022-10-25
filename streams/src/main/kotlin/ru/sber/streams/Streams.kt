@@ -83,19 +83,3 @@ fun Shop.getProductsOrderedByAll(): Set<Product> = this.customers
         }
         acc
     }
-
-
-fun main() {
-    val list = listOf(mapOf("a" to 3), mapOf("a" to 2, "c" to 1))
-    val res = list.fold(mutableMapOf<String, Int>(), { acc, v ->
-        v.forEach { (key, value) ->
-            if (acc.contains(key)) {
-                acc[key] = acc[key]!! + value
-            } else {
-                acc[key] = value
-            }
-        }
-        acc
-    })
-    print(res)
-}
