@@ -1,6 +1,8 @@
 package ru.sber.serialization
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -11,7 +13,10 @@ class JsonCustomClassDeserializer {
     fun `Нобходимо десериализовать данные в класс`() {
         // given
         val data = """{"client": "Иванов Иван Иванович"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(
+            KotlinModule(),
+            SimpleModule().also {it.addDeserializer(Client7::class.java, Client7Deserializer()) }
+        )
 
         // when
         val client = objectMapper.readValue<Client7>(data)
