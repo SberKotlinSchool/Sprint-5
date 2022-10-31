@@ -1,7 +1,7 @@
-package ru.sber.serialization.naming_strategy
+package ru.sber.serialization.utility
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.NamingBase
 
-class UpperCaseStrategy : NamingBase() {
+class UpperCaseNamingStrategy : NamingBase() {
     override fun translate(input: String?): String? =
         input?.uppercase() }
