@@ -22,7 +22,7 @@ class JsonCustomClassDeserializer {
             .enable(SerializationFeature.INDENT_OUTPUT)
             .setPropertyNamingStrategy(UpperCaseNamingStrategy())
 
-        //val initialObject = Client7(firstName = "Иван", lastName = "Иванов", middleName = "Иванович")
+
 
         // when
         val client = objectMapper.readValue<Client7>(data)
