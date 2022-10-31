@@ -4,8 +4,8 @@ package ru.sber.streams
 // 1. Используя withIndex() посчитать сумму элементов листа, индекс которых кратен 3. (нулевой индекс тоже входит)
 fun getSumWithIndexDivisibleByThree(list: List<Long>): Long {
     return list.withIndex()
-        .filter { it.index % 3 == 0 }
-        .sumOf { it.value }
+        .filter { listItem -> listItem.index % 3 == 0 }
+        .sumOf { listItem -> listItem.value }
 }
 
 // 2. Используя функцию generateSequence() создать последовательность, возвращающую числа Фибоначчи.
