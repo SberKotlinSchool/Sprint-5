@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
+import ru.sber.serialization.naming_strategy.UpperCaseStrategy
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
@@ -21,6 +22,7 @@ class JsonCustomNamingPropertyStrategyTest {
             .registerModules(KotlinModule(),JavaTimeModule(),Jdk8Module())
             .enable(SerializationFeature.INDENT_OUTPUT)
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .setPropertyNamingStrategy(UpperCaseStrategy())
 
         // when
         val client = objectMapper.readValue<Client1>(data)

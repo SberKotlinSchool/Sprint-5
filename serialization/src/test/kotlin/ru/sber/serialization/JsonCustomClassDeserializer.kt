@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
+import ru.sber.serialization.naming_strategy.UpperCaseStrategy
 import kotlin.test.assertEquals
 
 class JsonCustomClassDeserializer {
@@ -14,10 +15,12 @@ class JsonCustomClassDeserializer {
     fun `Нобходимо десериализовать данные в класс`() {
         // given
         val data = """{"client": "Иванов Иван Иванович"}"""
+
         val objectMapper = ObjectMapper()
             .registerModule(KotlinModule())
             .configure(DeserializationFeature.UNWRAP_ROOT_VALUE,false)
             .enable(SerializationFeature.INDENT_OUTPUT)
+            .setPropertyNamingStrategy(UpperCaseStrategy())
 
         //val initialObject = Client7(firstName = "Иван", lastName = "Иванов", middleName = "Иванович")
 
