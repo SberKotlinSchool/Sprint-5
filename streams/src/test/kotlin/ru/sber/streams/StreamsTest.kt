@@ -13,8 +13,8 @@ class StreamsTest {
 
     @Test
     fun generateFibonacciSequenceTest() {
-        assert(generateFibonacciSequence().take(4).toList() == listOf(0, 1, 1, 2))
-        assert(generateFibonacciSequence().take(10).toList() == listOf(0, 1, 1, 2, 3, 5, 8, 13, 21, 34))
+        assertEquals(listOf(0, 1, 1, 2), generateFibonacciSequence().take(4).toList())
+        assertEquals(listOf(0, 1, 1, 2, 3, 5, 8, 13, 21, 34), generateFibonacciSequence().take(10).toList())
     }
 
     @Test
@@ -61,5 +61,4 @@ class StreamsTest {
         ))
         assertEquals(setOf(bag), shop.getProductsOrderedByAll())
     }
-
 }

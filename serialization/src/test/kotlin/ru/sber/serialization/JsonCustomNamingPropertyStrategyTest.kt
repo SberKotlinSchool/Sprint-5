@@ -1,12 +1,22 @@
 package ru.sber.serialization
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.PropertyNamingStrategies.NamingBase
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
+
 class JsonCustomNamingPropertyStrategyTest {
+
+    class UpperCase : NamingBase() {
+        override fun translate(propertyName: String?): String {
+            return propertyName!!.uppercase()
+        }
+    }
 
     @Test
     fun `Кастомная стратегия десериализации`() {
@@ -14,6 +24,8 @@ class JsonCustomNamingPropertyStrategyTest {
         val data =
             """{"FIRSTNAME": "Иван", "LASTNAME": "Иванов", "MIDDLENAME": "Иванович", "PASSPORTNUMBER": "123456", "PASSPORTSERIAL": "1234", "BIRTHDATE": "1990-01-01"}"""
         val objectMapper = ObjectMapper()
+            .registerModules(KotlinModule(), JavaTimeModule())
+            .setPropertyNamingStrategy(UpperCase())
 
         // when
         val client = objectMapper.readValue<Client1>(data)
