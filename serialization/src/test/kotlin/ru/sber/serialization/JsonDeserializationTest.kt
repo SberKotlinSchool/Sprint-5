@@ -1,6 +1,9 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -14,7 +17,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(KotlinModule(), JavaTimeModule())
 
         // when
         val client = objectMapper.readValue<Client1>(data)
@@ -33,7 +36,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"city": "Москва", "firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(KotlinModule(), JavaTimeModule()).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 
         // when
         val client = objectMapper.readValue<Client1>(data)
