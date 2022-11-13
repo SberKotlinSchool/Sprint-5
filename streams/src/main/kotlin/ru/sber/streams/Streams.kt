@@ -37,7 +37,12 @@ fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? =
         .get()
 
 // 6. Получить самый дорогой продукт, когда-либо приобртенный покупателем.
-fun Customer.getMostExpensiveProduct(): Product? = null
+fun Customer.getMostExpensiveProduct(): Product? =
+    this.orders
+        .flatMap { it.products }
+        .maxWithOrNull { product1, product2 ->
+            (product1.price - product2.price).toInt()
+        }
 
 // 7. Получить соответствие в мапе: город - количество заказанных и доставленных продуктов в данный город.
 fun Shop.getNumberOfDeliveredProductByCity(): Map<City, Int> = emptyMap()
