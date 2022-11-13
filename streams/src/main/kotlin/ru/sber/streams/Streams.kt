@@ -29,7 +29,12 @@ fun Shop.allOrderedProducts(): Set<Product> =
         .collect(Collectors.toSet())
 
 // 5. Получить покупателя, который сделал больше всего заказов.
-fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? = null
+fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? =
+    this.customers.stream()
+        .max { customer1, customer2 ->
+            customer1.orders.size - customer2.orders.size
+        }
+        .get()
 
 // 6. Получить самый дорогой продукт, когда-либо приобртенный покупателем.
 fun Customer.getMostExpensiveProduct(): Product? = null
