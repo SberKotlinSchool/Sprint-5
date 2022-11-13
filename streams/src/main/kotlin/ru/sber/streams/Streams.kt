@@ -1,5 +1,8 @@
 package ru.sber.streams
 
+import java.util.Collections
+import java.util.stream.Collectors
+
 
 // 1. Используя withIndex() посчитать сумму элементов листа, индекс которых кратен 3. (нулевой индекс тоже входит)
 fun getSumWithIndexDivisibleByThree(list: List<Long>): Long =
@@ -12,9 +15,11 @@ fun generateFibonacciSequence(): Sequence<Int> =
     generateSequence(Pair(0, 1)) { Pair(it.second, it.first + it.second) }
         .map { it.first }
 
-
 // 3. Получить города, в которых есть покупатели.
-fun Shop.getCustomersCities(): Set<City> = emptySet()
+fun Shop.getCustomersCities(): Set<City> =
+    this.customers.stream()
+        .map { it.city }
+        .collect(Collectors.toSet())
 
 // 4. Получить все когда-либо заказанные продукты.
 fun Shop.allOrderedProducts(): Set<Product> = emptySet()
