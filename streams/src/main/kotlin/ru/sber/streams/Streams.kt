@@ -8,9 +8,10 @@ fun getSumWithIndexDivisibleByThree(list: List<Long>): Long =
         .sumOf { it.value }
 
 // 2. Используя функцию generateSequence() создать последовательность, возвращающую числа Фибоначчи.
-fun generateFibonacciSequence(): Sequence<Int> {
-    return emptySequence()
-}
+fun generateFibonacciSequence(): Sequence<Int> =
+    generateSequence(Pair(0, 1)) { Pair(it.second, it.first + it.second) }
+        .map { it.first }
+
 
 // 3. Получить города, в которых есть покупатели.
 fun Shop.getCustomersCities(): Set<City> = emptySet()
