@@ -22,7 +22,11 @@ fun Shop.getCustomersCities(): Set<City> =
         .collect(Collectors.toSet())
 
 // 4. Получить все когда-либо заказанные продукты.
-fun Shop.allOrderedProducts(): Set<Product> = emptySet()
+fun Shop.allOrderedProducts(): Set<Product> =
+    this.customers.stream()
+        .flatMap { it.orders.stream() }
+        .flatMap { it.products.stream() }
+        .collect(Collectors.toSet())
 
 // 5. Получить покупателя, который сделал больше всего заказов.
 fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? = null
