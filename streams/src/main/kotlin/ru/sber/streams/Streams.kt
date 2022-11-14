@@ -1,6 +1,5 @@
 package ru.sber.streams
 
-import java.util.Collections
 import java.util.stream.Collectors
 
 
@@ -49,10 +48,11 @@ fun Shop.getNumberOfDeliveredProductByCity(): Map<City, Int> =
     this.customers
         .map { customer ->
             Pair(customer.city,
-            customer.orders
-                .filter { it.isDelivered }
-                .sumOf { it.products.size }) }
-        .groupBy({it.first}, {it.second})
+                customer.orders
+                    .filter { it.isDelivered }
+                    .sumOf { it.products.size })
+        }
+        .groupBy({ it.first }, { it.second })
         .map { Pair(it.key, it.value.sum()) }
         .toMap()
 
@@ -74,5 +74,13 @@ fun Shop.getMostPopularProductInCity(): Map<City, Product> =
         .toMap()
 
 // 9. Получить набор товаров, которые заказывали все покупатели.
-fun Shop.getProductsOrderedByAll(): Set<Product> = emptySet()
+fun Shop.getProductsOrderedByAll(): Set<Product> =
+    this.customers
+        .map { customer ->
+            customer.orders
+                .flatMap { it.products }.toSet()
+        }
+        .reduce { result, products ->
+            result.intersect(products)
+        }
 
