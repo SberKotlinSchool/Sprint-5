@@ -86,4 +86,3 @@ fun Shop.getProductsOrderedByAll(): Set<Product> =
         .reduce { result, products ->
             result.intersect(products)
         }
-
