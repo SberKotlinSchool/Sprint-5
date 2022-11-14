@@ -2,7 +2,6 @@ package ru.sber.streams
 
 import java.util.stream.Collectors
 
-
 // 1. Используя withIndex() посчитать сумму элементов листа, индекс которых кратен 3. (нулевой индекс тоже входит)
 fun getSumWithIndexDivisibleByThree(list: List<Long>): Long =
     list.withIndex()
@@ -22,10 +21,10 @@ fun Shop.getCustomersCities(): Set<City> =
 
 // 4. Получить все когда-либо заказанные продукты.
 fun Shop.allOrderedProducts(): Set<Product> =
-    this.customers.stream()
-        .flatMap { it.orders.stream() }
-        .flatMap { it.products.stream() }
-        .collect(Collectors.toSet())
+    this.customers.asSequence()
+        .flatMap { it.orders }
+        .flatMap { it.products }
+        .toSet()
 
 // 5. Получить покупателя, который сделал больше всего заказов.
 fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? =
@@ -37,7 +36,7 @@ fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? =
 
 // 6. Получить самый дорогой продукт, когда-либо приобртенный покупателем.
 fun Customer.getMostExpensiveProduct(): Product? =
-    this.orders
+    this.orders.asSequence()
         .flatMap { it.products }
         .maxWithOrNull { product1, product2 ->
             (product1.price - product2.price).toInt()
@@ -46,21 +45,24 @@ fun Customer.getMostExpensiveProduct(): Product? =
 // 7. Получить соответствие в мапе: город - количество заказанных и доставленных продуктов в данный город.
 fun Shop.getNumberOfDeliveredProductByCity(): Map<City, Int> =
     this.customers
-        .map { customer ->
-            Pair(customer.city,
+        .groupBy(
+            { customer -> customer.city },
+            { customer ->
                 customer.orders
                     .filter { it.isDelivered }
-                    .sumOf { it.products.size })
-        }
-        .groupBy({ it.first }, { it.second })
+                    .sumOf { it.products.size }
+            }
+        )
         .map { Pair(it.key, it.value.sum()) }
         .toMap()
 
 // 8. Получить соответствие в мапе: город - самый популярный продукт в городе.
 fun Shop.getMostPopularProductInCity(): Map<City, Product> =
     this.customers
-        .groupBy({ it.city },
-            { it.orders.flatMap { order -> order.products } })
+        .groupBy(
+            { it.city },
+            { it.orders.flatMap { order -> order.products } }
+        )
         .map { entry ->
             Pair(
                 entry.key,
@@ -78,7 +80,8 @@ fun Shop.getProductsOrderedByAll(): Set<Product> =
     this.customers
         .map { customer ->
             customer.orders
-                .flatMap { it.products }.toSet()
+                .flatMap { it.products }
+                .toSet()
         }
         .reduce { result, products ->
             result.intersect(products)
