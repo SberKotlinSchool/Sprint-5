@@ -18,7 +18,13 @@ object Client7JsonDeserializer : JsonDeserializer<Client7>() {
         if (p == null)
             throw NullPointerException("No value to parse!")
         val jsonClient = p.readValueAsTree<JsonNode>().get("client")
+            ?: throw NullPointerException("No field \"client\" to parse in JSON string")
+
         val names = jsonClient.asText().split(' ')
-        return Client7(names[1], names[0], names[2])
+        return Client7(
+            names.getOrNull(1).orEmpty(),
+            names.getOrNull(0).orEmpty(),
+            names.getOrNull(2).orEmpty()
+        )
     }
 }
