@@ -10,7 +10,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class RoundingDeserializer : JsonDeserializer<Client7?>() {
+class SplitDeserializer : JsonDeserializer<Client7?>() {
     override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Client7 {
         val productNode = p.codec.readTree<JsonNode>(p)
         val (l, f, m) = productNode["client"].textValue().split(" ")
@@ -25,7 +25,7 @@ class JsonCustomClassDeserializer {
         // given
         val data = """{"client": "Иванов Иван Иванович"}"""
         val objectMapper = ObjectMapper()
-        objectMapper.registerModule(SimpleModule().addDeserializer(Client7::class.java, RoundingDeserializer()))
+        objectMapper.registerModule(SimpleModule().addDeserializer(Client7::class.java, SplitDeserializer()))
         // when
         val client = objectMapper.readValue<Client7>(data)
 
