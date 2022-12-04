@@ -42,7 +42,7 @@ fun Shop.getMostPopularProductInCity(): Map<City, Product> =
 
 // 9. Получить набор товаров, которые заказывали все покупатели.
 fun Shop.getProductsOrderedByAll(): Set<Product> =
-    // получаем все заказанные товары (в Set initial), а потом оставляем (пересечение) в коллекции те, которые встречались во всех заказах
+    //получаем все заказанные товары (в Set initial), а потом оставляем (пересечение) в коллекции те, которые встречались во всех заказах
     customers.fold(customers.flatMap { it.orders }.flatMap { it.products }.toSet()) { initial, customer ->
         initial.intersect(
             customer.orders.flatMap { it.products }.toSet()
