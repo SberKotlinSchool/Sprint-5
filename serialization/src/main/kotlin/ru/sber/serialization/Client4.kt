@@ -1,5 +1,6 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate
 import java.util.Optional
 
@@ -9,5 +10,6 @@ data class Client4(
     val middleName: Optional<String>,
     val passportNumber: String,
     val passportSerial: String,
+    @JsonFormat(pattern = "yyyy-MM-dd")
     val birthDate: LocalDate
 )
