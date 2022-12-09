@@ -1,5 +1,8 @@
 package ru.sber.streams
 
+import java.util.*
+
+
 // 1. Используя withIndex() посчитать сумму элементов листа, индекс которых кратен 3. (нулевой индекс тоже входит)
 fun getSumWithIndexDivisibleByThree(list: List<Long>): Long {
     var result: Long = 0
@@ -41,4 +44,4 @@ fun Shop.getMostPopularProductInCity(): Map<City, Product?> {
 }
 
 // 9. Получить набор товаров, которые заказывали все покупатели.
-fun Shop.getProductsOrderedByAll(): Set<Product> =  customers.flatMap { it.orders }.flatMap { it.products }.toSet()
+fun Shop.getProductsOrderedByAll(): Set<Product> = ArrayList(customers.flatMap { it.orders.flatMap { it.products } }.groupingBy { it }.eachCount().filter { it.value == customers.size }.keys).toSet()
