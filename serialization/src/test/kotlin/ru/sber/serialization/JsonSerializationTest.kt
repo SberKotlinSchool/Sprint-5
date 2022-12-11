@@ -1,6 +1,10 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -11,6 +15,9 @@ class JsonSerializationTest {
         // given
         val client = Client5()
         val objectMapper = ObjectMapper()
+            .registerModule(KotlinModule())
+            .registerModule(JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
         // when
         val data = objectMapper.writeValueAsString(client)
@@ -24,6 +31,10 @@ class JsonSerializationTest {
         // given
         val client = Client6()
         val objectMapper = ObjectMapper()
+            .registerModule(KotlinModule())
+            .registerModule(JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
 
         // when
         val data = objectMapper.writeValueAsString(client)
