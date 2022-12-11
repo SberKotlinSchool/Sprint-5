@@ -1,12 +1,16 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.time.LocalDate
 
+@JsonIgnoreProperties(value = ["city"])
 data class Client1(
     val firstName: String,
     val lastName: String,
     val middleName: String?,
     val passportNumber: String,
     val passportSerial: String,
+    @JsonFormat(pattern = "yyyy-MM-dd")
     val birthDate: LocalDate
 )
