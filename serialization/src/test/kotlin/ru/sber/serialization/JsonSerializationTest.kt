@@ -1,6 +1,7 @@
 package ru.sber.serialization
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -10,7 +11,7 @@ class JsonSerializationTest {
     fun `Не должны сериализовываться свойства с null значениям Настройка через аннотацию`() {
         // given
         val client = Client5()
-        val objectMapper = ObjectMapper()
+        val objectMapper = jacksonObjectMapper()
 
         // when
         val data = objectMapper.writeValueAsString(client)
@@ -23,7 +24,9 @@ class JsonSerializationTest {
     fun `Не должны сериализовываться свойства с null значениям Настройка через ObjectMapper`() {
         // given
         val client = Client6()
-        val objectMapper = ObjectMapper()
+        val objectMapper = jacksonObjectMapper()
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+
 
         // when
         val data = objectMapper.writeValueAsString(client)
