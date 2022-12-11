@@ -1,5 +1,6 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.time.LocalDate
 
 data class Client5(
