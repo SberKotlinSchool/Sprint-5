@@ -62,6 +62,6 @@ fun Shop.getMostPopularProductInCity(): Map<City, Product> = this
 // 9. Получить набор товаров, которые заказывали все покупатели.
 fun Shop.getProductsOrderedByAll(): Set<Product> = this
     .customers
-    .map { it.orders.flatMap { it.products } }
-    .reduce { accum, next -> accum.intersect(next).toList() }
+    .map { customer -> customer.orders.flatMap { it.products }.toSet() }
+    .reduce { accum, next -> accum.intersect(next) }
     .toSet()
