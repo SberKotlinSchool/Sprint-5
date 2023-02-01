@@ -17,7 +17,9 @@ class JsonCustomNamingPropertyStrategyTest {
         // given
         val data =
             """{"FIRSTNAME": "Иван", "LASTNAME": "Иванов", "MIDDLENAME": "Иванович", "PASSPORTNUMBER": "123456", "PASSPORTSERIAL": "1234", "BIRTHDATE": "1990-01-01"}"""
-        val objectMapper = ObjectMapper().registerModules(KotlinModule(), JavaTimeModule())
+        val objectMapper = ObjectMapper()
+            .registerModules(KotlinModule(), JavaTimeModule())
+            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 
         // when
         val client = objectMapper.readValue<Client1>(data)
