@@ -1,34 +1,39 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class JsonSerializationTest {
 
-    @Test
-    fun `Не должны сериализовываться свойства с null значениям Настройка через аннотацию`() {
-        // given
-        val client = Client5()
-        val objectMapper = ObjectMapper()
+  @Test
+  fun `Не должны сериализовываться свойства с null значениям Настройка через аннотацию`() {
+    // given
+    val client = Client5()
+    val objectMapper = ObjectMapper()
 
-        // when
-        val data = objectMapper.writeValueAsString(client)
+    // when
+    val data = objectMapper.writeValueAsString(client)
 
-        // then
-        assertEquals("{}", data)
-    }
+    // then
+    assertEquals("{}", data)
+  }
 
-    @Test
-    fun `Не должны сериализовываться свойства с null значениям Настройка через ObjectMapper`() {
-        // given
-        val client = Client6()
-        val objectMapper = ObjectMapper()
+  @Test
+  fun `Не должны сериализовываться свойства с null значениям Настройка через ObjectMapper`() {
+    // given
+    val client = Client6()
+    val objectMapper = ObjectMapper()
+      .registerModules(KotlinModule(), JavaTimeModule())
+    objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
 
-        // when
-        val data = objectMapper.writeValueAsString(client)
+    // when
+    val data = objectMapper.writeValueAsString(client)
 
-        // then
-        assertEquals("{}", data)
-    }
+    // then
+    assertEquals("{}", data)
+  }
 }
