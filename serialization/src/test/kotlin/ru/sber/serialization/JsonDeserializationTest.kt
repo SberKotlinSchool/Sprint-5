@@ -1,6 +1,9 @@
 package ru.sber.serialization
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -14,7 +17,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(JavaTimeModule(), KotlinModule())
 
         // when
         val client = objectMapper.readValue<Client1>(data)
@@ -33,7 +36,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"city": "Москва", "firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(JavaTimeModule(), KotlinModule())
 
         // when
         val client = objectMapper.readValue<Client1>(data)
@@ -52,7 +55,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"city": "Москва", "firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(JavaTimeModule(), KotlinModule())
 
         // when
         val client = objectMapper.readValue<Client1>(data)
@@ -71,7 +74,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"name": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(JavaTimeModule(), KotlinModule())
 
         // when
         val client = objectMapper.readValue<Client2>(data)
@@ -90,7 +93,7 @@ class JsonDeserializationTest {
         // given
         val data =
             """{"firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "01-01-1990"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(JavaTimeModule(), KotlinModule())
 
         // when
         val client = objectMapper.readValue<Client3>(data)
@@ -109,7 +112,7 @@ class JsonDeserializationTest {
         // given
         val data1 =
             """{"firstName": "Иван", "lastName": "Иванов", "middleName": "Иванович", "passportNumber": "123456", "passportSerial": "1234", "birthDate": "1990-01-01"}"""
-        val objectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper().registerModules(JavaTimeModule(), KotlinModule(), Jdk8Module())
 
         // when
         val client1 = objectMapper.readValue<Client4>(data1)
