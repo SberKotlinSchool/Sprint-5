@@ -1,8 +1,10 @@
 package ru.sber.serialization
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.time.LocalDate
 
-data class Client3(
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Client1(
     val firstName: String,
     val lastName: String,
     val middleName: String?,
