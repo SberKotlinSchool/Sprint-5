@@ -1,6 +1,7 @@
 package ru.sber.serialization
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -14,7 +15,7 @@ class JsonCustomNamingPropertyStrategyTest {
         val data =
             """{"FIRSTNAME": "Иван", "LASTNAME": "Иванов", "MIDDLENAME": "Иванович", "PASSPORTNUMBER": "123456", "PASSPORTSERIAL": "1234", "BIRTHDATE": "1990-01-01"}"""
         val objectMapper = ObjectMapper()
-
+        objectMapper.registerModule(SimpleModule().addDeserializer(Client1::class.java, PersonDeserializer(Client1::class.java)))
         // when
         val client = objectMapper.readValue<Client1>(data)
 
