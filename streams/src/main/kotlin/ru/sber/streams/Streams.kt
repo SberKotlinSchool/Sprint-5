@@ -1,7 +1,5 @@
 package ru.sber.streams
 
-import io.mockk.InternalPlatformDsl.toArray
-
 // 1. Используя withIndex() посчитать сумму элементов листа, индекс которых кратен 3. (нулевой индекс тоже входит)
 fun getSumWithIndexDivisibleByThree(list: List<Long>): Long {
     return list.withIndex().filter { it.index % 3 == 0 }.sumOf { it.value }
