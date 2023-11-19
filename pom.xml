@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>ru.sber</groupId>
     <artifactId>kotlin-school-sprint-5</artifactId>
     <packaging>pom</packaging>
@@ -12,7 +10,6 @@
         <module>serialization</module>
         <module>streams</module>
     </modules>
-
     <properties>
         <java.version>1.8</java.version>
         <kotlin.version>1.5.20</kotlin.version>
@@ -40,7 +37,6 @@
             <artifactId>mockk</artifactId>
             <version>1.12.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -48,10 +44,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
-        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -84,13 +77,6 @@
                             </sourceDirs>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
                 </executions>
                 <configuration>
                     <args>
@@ -111,6 +97,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
